@@ -1,0 +1,40 @@
+if at least one table is declared forwardly then forward declare as many tables as possible
+if relationships are used at all then forward declare tables as much as possible.
+
+do not seperate declarations with blank lines.
+one blank line is to seperate definitions from other definitions.
+two blank lines are to seperate definitions and declarations.
+
+use PascalCase for tables and templates, and camelCase for columns.
+
+ideally, all custom types are to be forwardly declared at the top of the page,
+followed by two blank lines, declarations AND definitions of all column templates, one blank
+line, recursively declaring AND defining for all table templates, two blank lines,
+all table forward declarations, two blank lines, table definitions with columns being
+forwardly declared and relationships being declared AND defined, two blank lines, and finally
+column definitions.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ EXAMPLE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~$ example.cedb $~
+~$ templates $~
+# <ExampleTemplate> {
+    ! examplePriKey;
+    * exampleColumnOne [
+        _ 0;
+        & 0;
+    ];
+    * exampleColumnTwo [_ 1;];
+};
+
+
+~$ tables $~
+# ExampleTable;
+# TableWithTemplate <ExampleTemplate>;
+
+
+~$ tables $~
+ExampleTable {
+    ! anotherExamplePriKey
+    * exampleDefaultCol;
+}
+~$ no *need* to define

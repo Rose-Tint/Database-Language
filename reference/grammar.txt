@@ -1,0 +1,72 @@
+%%%%% TYPING %%%%%
+
+STRING
+INT
+COLUMN
+TABLE
+RELATIONSHIP
+
+
+
+%%%%% OBJECTS %%%%%
+
+TABLE
+    ACCESS
+        L_BRACE IDENTIFIER R_BRACE
+
+COLUMN
+    ACCESS
+        L_BRACKET IDENTIFIER R_BRACKET
+ 
+RELATIONSHIP
+    ACCESS
+        GRAVE_ACCENT IDENTIFIER GRAVE_ACCENT
+    
+        
+
+%%%%% EXPRESSIONS %%%%%
+
+COMPOSITION
+    EXPRESSION
+        L_PAREN EXPR EXPR R_PAREN
+
+LIST
+    EXPRESSION
+        EXPR COMMA EXPR
+
+NEW
+    # DATA_TYPE refers to either a column, table, or relationship
+    EXPRESSION
+        STAR ACCESS_EXPR
+
+ALIAS
+    EXPRESSION
+        EXPR AMPERSAND IDENTIFIER
+
+INSERT
+    # INSERTER is the obj being inserted
+    # INSERTEE is the obj that is being inserted into
+    EXPRESSION
+        STD / INFIX
+            INSERTEE CARET INSERTER
+        PREFIX
+            STAR INSERTER INSERTEE
+
+SPECIFICATION
+    # CHILD refers to the bottom or most specific object
+    # PARENT refers to the parent of CHILD
+    EXPRESSION
+        CHILD AT_SIGN PARENT
+        PARENT DOT CHILD
+
+DESPECIFICATION
+    EXPRESSION
+        HASH EXPR
+
+EDIT
+    EXPRESSION
+        EXPR MOD EXPR
+
+SELECTION
+    EXPRESSION
+        EXPR DASH R_ANGLE EXPR

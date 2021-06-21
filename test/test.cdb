@@ -1,0 +1,37 @@
+# user;
+# post;
+# community;
+
+user {
+    ! <Text> username;
+    * <Text> password;
+    * <Text> bio;
+    @ {post} posts > author;
+    @ {user} followers | following;
+    @ {user} following | followers;
+};
+
+post {
+    ! <Int> id;
+    * <Text> title;
+    * <Date> date_posted;
+    * <Text> content;
+    * <Text> tags;
+    @ {user} author < posts;
+    @ {community} community > posts;
+};
+
+community {
+    ! <Text> name;
+    * <Text> description;
+    @ {user} founder = founded;
+    @ {user} admins | admining;
+    @ {post} posts < community;
+};
+
+user -> password [_ 0;];
+user -> bio [_ 0;];
+
+post -> title, date_posted, content [_ 0];
+
+community -> description [_ 0];

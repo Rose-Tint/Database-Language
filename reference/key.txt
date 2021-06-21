@@ -1,0 +1,130 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+META KEY
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+<_>:
+    nothing / null / None
+
+name / template:
+    context-specific alias placeholder
+
+options:
+    context-specific optional arguments
+        - could be column options for columns, or
+            column names for tables, etc.
+        - depending on the context, these may still
+            be required
+
+option:
+    column option
+
+value:
+    context-specific valid value
+
+args:
+    context-specific required arguments
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+VALUE TYPES
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Booean:
+    0 or false
+    1 or true
+
+Integer:
+    any integer
+
+Float:
+    any float
+
+Text:
+    anything that is put in between grave accents (`)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+TEMPLATES
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+overide root column template:
+    $$ [options]
+
+create a root table template:
+    $$ {columns}
+
+new column template:
+    $name$ [options]
+
+new table template:
+    $name$ {columns}
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+using a template:
+    name : template options
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+COLUMNS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+root: [
+    _ 1
+    & 0
+    % _
+    ! _
+]
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+nullable:
+    symbol: _
+    type: boolean
+
+unique constraint:
+    symbol: &
+    type: boolean
+
+default:
+    symbol: %
+    type: type dependant
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+primary key:
+    symbol: !
+        before name
+
+options syntax:
+    [(option value)(option value)(option value)]
+    [
+        (option value)
+        (option value)
+        (option value)
+    ]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+TABLES
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+column:
+    symbol: *
+    syntax: name * [options]
+
+relationship:
+    symbols:
+        one to many: <
+        many to one: >
+        one to one: =
+        many to many: |
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
