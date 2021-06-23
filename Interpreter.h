@@ -10,6 +10,6 @@ class Interpreter
     std::vector<Symbol> symbols;
     void interpret(const std::vector<Symbol>&);
     public:
-    explicit Interpreter(const std::vector<Symbol>&);
+    explicit Interpreter(std::vector<Symbol>);
     DBFile interpret();
 };

@@ -1,6 +1,9 @@
 #include "Reader.h"
 
 
+// Time: O(1)
+// Space: O(1)
+// where 
 void Reader::open()
 {
     if (!bin.is_open())
@@ -13,6 +16,9 @@ void Reader::open()
 }
 
 
+// Time: O(t)
+// Space: O(t)
+// where t = # of tables
 DBFile Reader::read()
 {
     open();
@@ -24,6 +30,8 @@ DBFile Reader::read()
 }
 
 
+// Time: O(1)
+// Space: O(1)
 template<class T>
 T Reader::read_t(bool close)
 {
@@ -36,10 +44,15 @@ T Reader::read_t(bool close)
 }
 
 
+// Time: O(1)
+// Space: O(1)
 template<class T>
 void Reader::skip_t() { bin.seekg(sizeof(T), bin.cur); }
 
 
+// Time: O(c + o)
+// Space: O(c)
+// where c = # of columns and o = # of objs
 template<>
 void Reader::skip_t<Table>()
 {
@@ -56,6 +69,8 @@ void Reader::skip_t<Table>()
 }
 
 
+// Time: O(1)
+// Space: O(1)
 Metadata Reader::read_fmd(bool close)
 {
     open();
@@ -67,6 +82,9 @@ Metadata Reader::read_fmd(bool close)
 }
 
 
+// Time: O()
+// Space: O()
+// where 
 template<>
 Table Reader::read_t<Table>(bool close)
 {
@@ -92,12 +110,12 @@ Table Reader::read_t<Table>(bool close)
             byte* data = new byte[col.get_size()];
             for (byte* _byte = data; _byte < data + col.get_size(); _byte++)
                 *data = read_t<byte>();
-            *cell = col.create_cell(data, data + col.get_size());
+            *cell = col.create_cell(data);
         }
 
         Cell* begin = *cells;
         Cell* end = *cells + table_md.column_count;
-        objects.push_back(Object(table_md.column_count, begin, end));
+        objects.push_back(Object(table_md.column_count, begin));
     }
 
     if (close) bin.close();
@@ -105,6 +123,9 @@ Table Reader::read_t<Table>(bool close)
 }
 
 
+// Time: O()
+// Space: O()
+// where 
 Table Reader::read_tbl(const unsigned& table_i)
 {
     open();
@@ -116,7 +137,9 @@ Table Reader::read_tbl(const unsigned& table_i)
         ReadError err(msg, filename, index);
         throw err;
     };
+
     for (ushort i = 0; i < fmd.table_count - 1; i++)
         skip_t<Table>();
+
     return read_t<Table>();
 }

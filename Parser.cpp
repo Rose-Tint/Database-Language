@@ -1,10 +1,14 @@
 #include "Parser.h"
 
 
+// Time: O(1)
+// Space: O(1)
 ParserError Parser::error(std::string msg)
 { return ParserError(msg, filename, lines[line], line, column); }
 
 
+// Time: O(1)
+// Space: O(1)
 char Parser::advance()
 {
     if (get_c() == '\n')
@@ -17,6 +21,9 @@ char Parser::advance()
 }
 
 
+// Time: O()
+// Space: O()
+// where 
 std::string Parser::make_value()
 {
     bool num = false;
@@ -42,6 +49,9 @@ std::string Parser::make_value()
 }
 
 
+// Time: O()
+// Space: O()
+// where 
 std::string Parser::make_number()
 {
     bool dec = false;
@@ -59,6 +69,8 @@ std::string Parser::make_number()
 }
 
 
+// Time: O(1)
+// Space: O(1)
 Token Parser::create_token(const char& c)
 {
     char opcode;
@@ -73,6 +85,8 @@ Token Parser::create_token(const char& c)
 }
 
 
+// Time: O(1) - O(1)
+// Space: O(1)
 Token Parser::create_token(const std::string& chars)
 {
     if (chars.size() == 1) return create_token(chars[0]);
@@ -85,6 +99,8 @@ Token Parser::create_token(const std::string& chars)
 }
 
 
+// Time: O(1)
+// Space: O(1)
 char Parser::get_c()
 {
     if (index < code.size()) return code[index];
@@ -92,6 +108,8 @@ char Parser::get_c()
 }
 
 
+// Time: O(1)
+// Space: O(1)
 std::string Parser::calculate_name(const char& c)
 {
     if (TOKENS.count(c) == 1) return TOKENS.at(c);
@@ -99,6 +117,9 @@ std::string Parser::calculate_name(const char& c)
 }
 
 
+// Time: O(s)
+// Space: O(s)
+// where s = size of file
 std::string& Parser::read(bool close)
 {
     code.erase(0, code.size());
@@ -115,19 +136,23 @@ std::string& Parser::read(bool close)
 }
 
 
+// Time: O(s + t - i)
+// Space: O()
+// where s = file size, t = # of tokens found, and i = number of tokens which are whitespace
 std::vector<Symbol> Parser::parse(const bool& verbose)
 {
     read();
     std::vector<Token> tokens;
     long code_size = code.size();
+    index = 0;
     char c = get_c();
-    while (index < code_size)
+    for (;index < code_size; c = advance())
     {
         if (std::isalnum(c)) tokens.push_back(create_token(make_value()));
         else if (TOKENS.count(c) == 1) tokens.push_back(create_token(c));
         else throw error("Invalid token");
-        c = advance();
     }
+
     if (verbose)
     {
         std::cout << "Uncleaned Tokens:" << std::endl;
@@ -173,13 +198,6 @@ std::vector<Symbol> Parser::parse(const bool& verbose)
             symbols.push_back(symbol);
         }
     }
-
-    delete &cleaned;
-    delete &ignore;
-    delete &key;
-    delete &current;
-    delete &next;
-    delete &two_ahead;
 
     if (verbose)
     {

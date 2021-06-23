@@ -11,7 +11,7 @@
 #include "Interpreter.h"
 
 
-void run();
+void run() {}
 
 
 int main(int argc, char* argv[])
@@ -24,14 +24,13 @@ int main(int argc, char* argv[])
     {
         if (argc > 1)
         {
-            using std::string;
-            if (args[1] == string("test"))
+            if (args[1] == std::string("test"))
                 unit_tests();
-            else if (args[1] == string("benchmark") || args[1] == string("bm"))
+            else if (args[1] == std::string("benchmark") || args[1] == std::string("bm"))
                 benchmarks();
-            else if (args[1] == string("run"))
+            else if (args[1] == std::string("run"))
                 run();
-            else if (args[1] == string("shell"))
+            else if (args[1] == std::string("shell"))
                 Shell();
             else throw new CMDLineError("invalid cmd line argument", argv[1]);
         }

@@ -2,6 +2,9 @@
 #include <iostream>
 
 
+// Time: O()
+// Space: O()
+// where 
 Table::Table(TableMetadata md, std::vector<Column> cols, std::vector<Object> objs)
 {
     objects = objs;
@@ -11,6 +14,9 @@ Table::Table(TableMetadata md, std::vector<Column> cols, std::vector<Object> obj
 }
 
 
+// Time: O()
+// Space: O()
+// where 
 Table::Table(TableMetadata md, std::vector<Column> cols)
 {
     metadata = md;
@@ -19,6 +25,9 @@ Table::Table(TableMetadata md, std::vector<Column> cols)
 }
 
 
+// Time: O()
+// Space: O()
+// where 
 std::vector<Column> Table::get_columns() const
 {
     std::vector<Column> cols;
@@ -29,10 +38,16 @@ std::vector<Column> Table::get_columns() const
 }
 
 
+// Time: O()
+// Space: O()
+// where 
 std::string Table::get_name() const
 { return std::string(reinterpret_cast<const char*>(metadata.name)); }
 
 
+// Time: O()
+// Space: O()
+// where 
 Object Table::create_object() const
 {
     Cell** cells = new Cell*[columns.size()];
@@ -42,5 +57,5 @@ Object Table::create_object() const
 
     Cell* data_begin = *cells;
     Cell* data_end = *(cells + columns.size());
-    return Object(columns.size(), data_begin, data_end);
+    return Object(columns.size(), data_begin);
 }

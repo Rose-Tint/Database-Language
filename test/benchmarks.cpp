@@ -12,7 +12,7 @@ namespace cnstr
         void range()
         {
             byte bytes[size_b] { 43, 79, 3, 19 };
-            Cell cell(size_b, bytes, bytes + size_b);
+            Cell cell(size_b, bytes);
         }
     }
 }
@@ -33,7 +33,7 @@ void benchmark(const std::string msg, F func, Args ...args)
     for (short i = 0; i < count; i++)
     {
         auto t1 = high_resolution_clock::now();
-        function(std::forward<Args>(args)...);
+        func(std::forward<Args>(args)...);
         auto t2 = high_resolution_clock::now();
 
         duration<double, std::milli> current = t2 - t1;

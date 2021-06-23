@@ -41,5 +41,5 @@ class Column
     Properties get_properties() const { return properties; }
 
     Cell create_cell() const { return Cell(metadata.size); };
-    Cell create_cell(byte*, byte*) const;
+    Cell create_cell(byte*) const;
 };

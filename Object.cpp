@@ -2,6 +2,9 @@
 #include <iostream>
 
 
+// Time: O(s)
+// Space: O(1)
+// where s = size
 bool operator==(const Object& left, const Object& right)
 {
     bool size = (left.get_size() == right.get_size());
@@ -17,37 +20,43 @@ bool operator==(const Object& left, const Object& right)
 }
 
 
-Object::Object(int _size, Cell* begin, Cell* end) : size(_size)
+// Time: O(s)
+// Space: O(1)
+// where s = size
+Object::Object(int _size, Cell* begin) : size(_size)
 {
-    data_begin = new Cell*[size];
-    data_end = data_begin + size;
-    
-    for (Cell** cell = data_begin; cell < data_end; cell++)
-        **cell = *(begin + size);
+    data = new Cell*[size];
+    for (int i = 0; i < size; i++)
+        *(data + i) = begin + i;
 }
 
 
-Cell** Object::get_data() const
-{
-    return data_begin;
-}
+// Time: O(1)
+// Space: O(1)
+Cell** Object::get_data() const { return data; }
 
 
+// Time: O(s*w)
+// Space: O(s*w)
+// where s = size and w = the sum of the obj's cell's sizes
 byte* Object::get_data_bytes() const
 {
     int width;
-    for (Cell** cell = data_begin; cell < data_end; cell++)
+    for (Cell** cell = data; cell < data + size; cell++)
         width += (*cell)->size;
 
-    byte* data = new byte[width];
-    byte* data_ptr = data;
-    for (Cell** cell = data_begin; cell < data_end; cell++)
+    byte* bytes = new byte[width];
+    for (int i = 0; i < size; i++)
     {
-        byte* begin = (*cell)->value();
-        byte* end = begin + (*cell)->size;
-        for (byte* bit = begin; bit < end; bit++)
-            *(data_ptr++) = *bit;
+        byte* value = (*(data + i))->get_value();
+        for (int j = 0; j < (*(data + i))->size; j++)
+            *(bytes + j) = *(value + j);
     }
 
-    return data;
+    return bytes;
 }
+
+
+// Time: O(1)
+// Space: O(1)
+Object::~Object() { delete[] data; }

@@ -5,14 +5,16 @@
 
 class Object
 {
-    int size;
-    Cell** data_begin;
-    Cell** data_end;
+    int size; // number of cells
+    Cell** data;
 
     public:
-    Object(int, Cell*, Cell*);
-    int get_size() const { return size; }
+    explicit Object(int);
+    Object(int, Cell*);
 
+    ~Object();
+
+    int get_size() const { return size; }
     Cell** get_data() const;
     byte* get_data_bytes() const;
 };

@@ -1,7 +1,8 @@
-#include <iostream>
 #include "Column.h"
 
 
+// Time: O(1)
+// Space: O(1)
 bool operator==(const ColumnMetadata& left, const ColumnMetadata& right)
 {
     bool name = true;
@@ -15,6 +16,8 @@ bool operator==(const ColumnMetadata& left, const ColumnMetadata& right)
 }
 
 
+// Time: O(1)
+// Space: O(1)
 Column::Column(ColumnMetadata cmd)
 {
     metadata = cmd;
@@ -22,6 +25,8 @@ Column::Column(ColumnMetadata cmd)
 }
 
 
+// Time: O(1)
+// Space: O(1)
 Column::Column(char* name, u8 size, Properties props) : properties(props)
 {
     ColumnMetadata cmd =
@@ -52,8 +57,12 @@ Column::Column(char* name, u8 size, Properties props) : properties(props)
 }
 
 
+// Time: O(1)
+// Space: O(1)
 std::string Column::get_name() const
 { return std::string(reinterpret_cast<const char*>(metadata.name)); }
 
 
-Cell Column::create_cell(byte* begin, byte* end) const { return Cell(metadata.size, begin, end); }
+// Time: O(1)
+// Space: O(1)
+Cell Column::create_cell(byte* begin) const { return Cell(metadata.size, begin); }

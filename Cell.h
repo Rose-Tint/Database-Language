@@ -5,25 +5,23 @@
 class Cell
 {
     friend class Column;
-    template<class> friend bool test();
 
-    byte* value_begin;
-    byte* value_end;
+    byte* value;
 
     public:
     const ushort size; // size in bytes of the value
 
     explicit Cell(unsigned);
     Cell(unsigned, byte*); // range constructor
+    Cell& operator=(Cell&&);
+    Cell& operator=(Cell&);
 
     ~Cell();
 
-    byte* get_value_begin() { return value_begin; }
-    byte* get_value_end() { return value_end; }
-    Cell& operator=(Cell&&);
-    Cell& operator=(Cell&);
-    byte* value() const;
-    void set(byte*, byte*);
+    byte* get_value() const;
+
+    void set(byte*, unsigned);
+    void set(unsigned, byte);
 };
 
 
